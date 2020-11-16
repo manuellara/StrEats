@@ -1,3 +1,3 @@
 # StrEats
 
-Prototype website for a mobile ordering service
+Prototype website for mobile ordering service
