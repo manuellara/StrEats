@@ -4,7 +4,7 @@ import React from 'react'
 export default function Layout() {
     return (
         <div>
-            Hello World
+            <h1>Hello World</h1>
         </div>
     )
 }
