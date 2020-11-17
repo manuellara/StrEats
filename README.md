@@ -4,5 +4,4 @@ Prototype website for mobile ordering service
 
 ## Built with...
 
-React 
-Material-UI
+React, Material-UI, and Firebase
