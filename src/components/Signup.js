@@ -23,69 +23,66 @@ function UpperCasingTextField(props) {
 
 export default function Signup() {
   return (
-    <>
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = "Required";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
-          }
+    <Formik
+      initialValues={{
+        email: "",
+        password: "",
+      }}
+      validate={(values) => {
+        const errors = {};
+        if (!values.email) {
+          errors.email = "Required";
+        } else if (
+          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+        ) {
+          errors.email = "Invalid email address";
+        }
 
-          if (values.password < 8) {
-            errors.password = "Password needs to be at lest 8 characters";
-          }
+        if (values.password < 8) {
+          errors.password = "Password needs to be at lest 8 characters";
+        }
 
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false);
-            alert(JSON.stringify(values, null, 2));
-          }, 500);
-        }}
-      >
-        {/* actual form */}
-        {({ submitForm, isSubmitting, touched, errors }) => (
-          <Form>
-            <Box margin={1}>
-              <Field
-                component={UpperCasingTextField}
-                name="email"
-                type="email"
-                label="Email"
-                helperText="Please Enter Email"
-              />
-            </Box>
-            <Box margin={1}>
-              <Field
-                component={TextField}
-                type="password"
-                label="Password"
-                name="password"
-              />
-            </Box>
-            <Box margin={1}>
-              {isSubmitting && <LinearProgress />}
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={isSubmitting}
-                onClick={submitForm}
-              >
-                Submit
-              </Button>
-            </Box>
-          </Form>
-        )}
-      </Formik>
-    </>
+        return errors;
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          setSubmitting(false);
+          alert(JSON.stringify(values, null, 2));
+        }, 500);
+      }}
+    >
+      {({ submitForm, isSubmitting }) => (
+        <Form>
+          {isSubmitting && <LinearProgress />}
+          <Box margin={1}>
+            <Field
+              component={UpperCasingTextField}
+              name="email"
+              type="email"
+              label="Email"
+              helperText="Please Enter Email"
+            />
+          </Box>
+          <Box margin={1}>
+            <Field
+              component={TextField}
+              type="password"
+              label="Password"
+              name="password"
+            />
+          </Box>
+          <Box margin={1}>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={isSubmitting}
+              onClick={submitForm}
+            >
+              Submit
+            </Button>
+          </Box>
+        </Form>
+      )}
+    </Formik>
   );
 }
