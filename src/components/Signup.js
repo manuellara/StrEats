@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Button, LinearProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
@@ -29,6 +29,8 @@ function UpperCasingTextField(props) {
 
 export default function Signup() {
   const { signUp } = useAuth();
+  // eslint-disable-next-line
+  const [error, setError] = useState('')
 
   return (
     <>
@@ -59,10 +61,17 @@ export default function Signup() {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
+          setError('')
+          setTimeout( async() => {
             setSubmitting(false);
             // alert(JSON.stringify(values, null, 2));
-            signUp(values.email, values.password);
+            try {
+              await signUp(values.email, values.password);
+            }
+            catch{
+              setError('Failed to create account')
+            }
+            
           }, 500);
         }}
       >
@@ -123,7 +132,7 @@ export default function Signup() {
         )}
       </Formik>
       <Typography variant="h6" align="center">
-        Already have an account?
+        Already have an account? Sign In
       </Typography>
     </>
   );
