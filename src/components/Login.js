@@ -30,8 +30,8 @@ function UpperCasingTextField(props) {
   return <MuiTextField {...fieldToTextField(props)} onChange={onChange} />;
 }
 
-export default function Signup() {
-  const { signup } = useAuth();
+export default function Login() {
+  const { login } = useAuth();
   const [error, setError] = useState("");
 
   return (
@@ -40,7 +40,6 @@ export default function Signup() {
         initialValues={{
           email: "",
           password: "",
-          passwordConfirm: "",
         }}
         validate={(values) => {
           const errors = {};
@@ -52,14 +51,6 @@ export default function Signup() {
             errors.email = "Invalid email address";
           }
 
-          if (values.password.length < 8) {
-            errors.password = "Password needs to be at lest 8 characters";
-          }
-
-          if (values.passwordConfirm !== values.password) {
-            errors.passwordConfirm = "Passwords do not match";
-          }
-
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -68,9 +59,9 @@ export default function Signup() {
             setSubmitting(false);
             // alert(JSON.stringify(values, null, 2));
             try {
-              await signup(values.email, values.password);
+              await login(values.email, values.password);
             } catch {
-              setError("Failed to create account");
+              setError("Failed to Sign In");
             }
           }, 500);
         }}
@@ -80,7 +71,7 @@ export default function Signup() {
             {isSubmitting && <LinearProgress />}
             <Card variant="outlined">
               <Typography variant="h4" align="center">
-                Sign Up
+                Login
               </Typography>
               {error && (
                 <Alert severity="error">
@@ -110,16 +101,6 @@ export default function Signup() {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <Field
-                      component={TextField}
-                      variant="outlined"
-                      type="password"
-                      label="Confirm Password"
-                      name="passwordConfirm"
-                      fullWidth
-                    />
-                  </Grid>
                 </Grid>
               </CardContent>
               <CardActions>
@@ -130,7 +111,7 @@ export default function Signup() {
                   onClick={submitForm}
                   fullWidth
                 >
-                  Submit
+                  Log In
                 </Button>
               </CardActions>
             </Card>
@@ -138,10 +119,10 @@ export default function Signup() {
         )}
       </Formik>
       <Typography variant="h6" align="center">
-        Already have an account? <Link to="/login">Sign In</Link>
+        Need an account? <Link to="/signup">Sign Up</Link>
       </Typography>
       <Typography variant="h6" align="center">
-        Or Sign Up using provider
+        Or Log In with provider
       </Typography>
     </>
   );
