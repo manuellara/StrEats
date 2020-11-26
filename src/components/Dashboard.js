@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Alert from "@material-ui/lab/Alert";
-import AlertTitle from "@material-ui/lab/AlertTitle";
+import { Card, CardActions, CardContent, Button } from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import { Link, useHistory } from "react-router-dom";
-
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Dashboard() {

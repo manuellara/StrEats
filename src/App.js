@@ -1,11 +1,10 @@
 import React from "react"
-import Grid from "@material-ui/core/Grid"
-import Container from "@material-ui/core/Container"
+import { Grid, Container } from "@material-ui/core"
 import { AuthProvider } from "./contexts/AuthContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Privateroute from "./components/PrivateRoute"
 
-// components
+// app routes
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";

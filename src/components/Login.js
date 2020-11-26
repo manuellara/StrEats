@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { Button, LinearProgress } from "@material-ui/core";
-import { TextField } from "formik-material-ui";
-import Typography from "@material-ui/core/Typography";
-import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
+import {
+  Grid,
+  Button,
+  LinearProgress,
+  Card,
+  CardActions,
+  CardContent,
+  Typography
+} from "@material-ui/core";
+import { TextField, fieldToTextField } from "formik-material-ui";
 import MuiTextField from "@material-ui/core/TextField";
-import { fieldToTextField } from "formik-material-ui";
-import Alert from "@material-ui/lab/Alert";
-import AlertTitle from "@material-ui/lab/AlertTitle";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import { Link, useHistory } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
@@ -61,7 +62,7 @@ export default function Login() {
             // alert(JSON.stringify(values, null, 2));
             try {
               await login(values.email, values.password);
-              history.push("/")
+              history.push("/");
             } catch {
               setError("Failed to Sign In");
             }
