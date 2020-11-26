@@ -11,7 +11,7 @@ import MuiTextField from "@material-ui/core/TextField";
 import { fieldToTextField } from "formik-material-ui";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
 
@@ -33,6 +33,7 @@ function UpperCasingTextField(props) {
 export default function Login() {
   const { login } = useAuth();
   const [error, setError] = useState("");
+  const history = useHistory();
 
   return (
     <>
@@ -60,6 +61,7 @@ export default function Login() {
             // alert(JSON.stringify(values, null, 2));
             try {
               await login(values.email, values.password);
+              history.push("/")
             } catch {
               setError("Failed to Sign In");
             }

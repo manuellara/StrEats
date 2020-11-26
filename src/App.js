@@ -1,8 +1,9 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import { AuthProvider } from "./contexts/AuthContext";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from "react"
+import Grid from "@material-ui/core/Grid"
+import Container from "@material-ui/core/Container"
+import { AuthProvider } from "./contexts/AuthContext"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import Privateroute from "./components/PrivateRoute"
 
 // components
 import Signup from "./components/Signup";
@@ -24,7 +25,7 @@ function App() {
         <Container maxWidth="sm">
           <Router>
             <Switch>
-              <Route exact path="/" component={Dashboard} />
+              <Privateroute exact path="/" component={Dashboard} />
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
             </Switch>
