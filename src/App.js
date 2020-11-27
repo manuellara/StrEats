@@ -8,6 +8,7 @@ import Privateroute from "./components/PrivateRoute"
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword";
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ minHeight: "100vh" }}
+        style={{ minHeight: "100vh"}}
       >
         <Container maxWidth="sm">
           <Router>
@@ -27,6 +28,7 @@ function App() {
               <Privateroute exact path="/" component={Dashboard} />
               <Route path="/signup" component={Signup} />
               <Route path="/login" component={Login} />
+              <Route path="/forgot-password" component={ForgotPassword} />
             </Switch>
           </Router>
         </Container>

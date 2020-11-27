@@ -7,12 +7,12 @@ import {
   Card,
   CardActions,
   CardContent,
-  Typography
+  Typography,
 } from "@material-ui/core";
-import { TextField, fieldToTextField } from "formik-material-ui";
+import { fieldToTextField } from "formik-material-ui";
 import MuiTextField from "@material-ui/core/TextField";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
 
@@ -31,17 +31,16 @@ function UpperCasingTextField(props) {
   return <MuiTextField {...fieldToTextField(props)} onChange={onChange} />;
 }
 
-export default function Login() {
-  const { login } = useAuth();
+export default function ForgotPassword() {
+  const { resetPassword } = useAuth();
   const [error, setError] = useState("");
-  const history = useHistory();
+  const [message, setMessage] = useState();
 
   return (
     <>
       <Formik
         initialValues={{
           email: "",
-          password: "",
         }}
         validate={(values) => {
           const errors = {};
@@ -61,10 +60,11 @@ export default function Login() {
             setSubmitting(false);
             // alert(JSON.stringify(values, null, 2));
             try {
-              await login(values.email, values.password);
-              history.push("/");
+              setMessage("");
+              await resetPassword(values.email);
+              setMessage("Check your inbox for password reset email");
             } catch {
-              setError("Failed to Sign In");
+              setError("Could not match email with associated account");
             }
           }, 500);
         }}
@@ -74,8 +74,14 @@ export default function Login() {
             {isSubmitting && <LinearProgress />}
             <Card variant="outlined">
               <Typography variant="h4" align="center">
-                Login
+                Reset Password
               </Typography>
+              {message && (
+                <Alert severity="success">
+                  <AlertTitle>Success</AlertTitle>
+                  {message}
+                </Alert>
+              )}
               {error && (
                 <Alert severity="error">
                   <AlertTitle>Error</AlertTitle>
@@ -94,16 +100,6 @@ export default function Login() {
                       fullWidth
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <Field
-                      component={TextField}
-                      variant="outlined"
-                      type="password"
-                      label="Password"
-                      name="password"
-                      fullWidth
-                    />
-                  </Grid>
                 </Grid>
               </CardContent>
               <CardActions>
@@ -114,7 +110,7 @@ export default function Login() {
                   onClick={submitForm}
                   fullWidth
                 >
-                  Log In
+                  Reset Password
                 </Button>
               </CardActions>
             </Card>
@@ -122,13 +118,10 @@ export default function Login() {
         )}
       </Formik>
       <Typography variant="h6" align="center">
-        <Link to="/forgot-password">Forgot password?</Link>
+        Back to <Link to="/login">Login</Link>
       </Typography>
       <Typography variant="h6" align="center">
         Need an account? <Link to="/signup">Sign Up</Link>
-      </Typography>
-      <Typography variant="h6" align="center">
-        Or Log In with provider
       </Typography>
     </>
   );
