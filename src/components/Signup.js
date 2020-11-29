@@ -9,27 +9,11 @@ import {
   CardContent,
   Typography
 } from "@material-ui/core";
-import { TextField, fieldToTextField } from "formik-material-ui";
-import MuiTextField from "@material-ui/core/TextField";
+import { TextField } from "formik-material-ui";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { Link, useHistory } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
-
-function UpperCasingTextField(props) {
-  const {
-    form: { setFieldValue },
-    field: { name },
-  } = props;
-  const onChange = React.useCallback(
-    (event) => {
-      const { value } = event.target;
-      setFieldValue(name, value ? value.toUpperCase() : "");
-    },
-    [setFieldValue, name]
-  );
-  return <MuiTextField {...fieldToTextField(props)} onChange={onChange} />;
-}
 
 export default function Signup() {
   const { signup } = useAuth();
@@ -68,7 +52,6 @@ export default function Signup() {
           setError("");
           setTimeout(async () => {
             setSubmitting(false);
-            // alert(JSON.stringify(values, null, 2));
             try {
               await signup(values.email, values.password);
               history.push("/")
@@ -95,7 +78,7 @@ export default function Signup() {
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
                     <Field
-                      component={UpperCasingTextField}
+                      component={TextField}
                       variant="outlined"
                       name="email"
                       type="email"

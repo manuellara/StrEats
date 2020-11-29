@@ -9,27 +9,11 @@ import {
   CardContent,
   Typography,
 } from "@material-ui/core";
-import { fieldToTextField } from "formik-material-ui";
-import MuiTextField from "@material-ui/core/TextField";
+import { TextField } from "formik-material-ui";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
-
-function UpperCasingTextField(props) {
-  const {
-    form: { setFieldValue },
-    field: { name },
-  } = props;
-  const onChange = React.useCallback(
-    (event) => {
-      const { value } = event.target;
-      setFieldValue(name, value ? value.toUpperCase() : "");
-    },
-    [setFieldValue, name]
-  );
-  return <MuiTextField {...fieldToTextField(props)} onChange={onChange} />;
-}
 
 export default function ForgotPassword() {
   const { resetPassword } = useAuth();
@@ -58,13 +42,12 @@ export default function ForgotPassword() {
           setError("");
           setTimeout(async () => {
             setSubmitting(false);
-            // alert(JSON.stringify(values, null, 2));
             try {
               setMessage("");
               await resetPassword(values.email);
               setMessage("Check your inbox for password reset email");
             } catch {
-              setError("Could not match email with associated account");
+              setError("Could not match email with an associated account");
             }
           }, 500);
         }}
@@ -92,7 +75,7 @@ export default function ForgotPassword() {
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
                     <Field
-                      component={UpperCasingTextField}
+                      component={TextField}
                       variant="outlined"
                       name="email"
                       type="email"

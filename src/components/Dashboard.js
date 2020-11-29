@@ -11,12 +11,11 @@ export default function Dashboard() {
 
   async function handleLogOut() {
     setError("");
-
     try {
       await logout();
       history.push("/login");
     } catch {
-      setError("Failed to Log Out");
+      setError("Issue with Logging Out");
     }
   }
 
@@ -32,14 +31,26 @@ export default function Dashboard() {
             </Alert>
           )}
           <strong>Email: </strong> {currentUser.email}
-          <Link to="/update-profile" component={Button} fullWidth>
+          <Button
+            to="/update-profile"
+            component={Link}
+            variant="outlined"
+            fullWidth
+          >
             Update Profile
-          </Link>
+          </Button>
         </CardContent>
         <CardActions></CardActions>
       </Card>
 
-      <Button onClick={handleLogOut}>Log Out</Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleLogOut}
+        fullWidth
+      >
+        Log Out
+      </Button>
     </>
   );
 }
