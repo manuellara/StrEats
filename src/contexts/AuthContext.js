@@ -1,5 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth, googleProvider } from "../firebase";
+import {
+  auth,
+  googleProvider,
+  facebookProvider,
+  twitterProvider,
+  githubProvider,
+} from "../firebase";
 
 const AuthContext = React.createContext();
 
@@ -27,8 +33,19 @@ export function AuthProvider({ children }) {
     return auth.sendPasswordResetEmail(email);
   }
 
-  function loginWithGoogle() {
-    return auth.signInWithPopup(googleProvider)
+  function loginWithProvider(provider) {
+    if (provider === "google") {
+      return auth.signInWithPopup(googleProvider);
+    }
+    else if (provider === "facebook") {
+      return auth.signInWithPopup(facebookProvider);
+    }
+    else if (provider === "twitter") {
+      return auth.signInWithPopup(twitterProvider);
+    }
+    else if (provider === "github") {
+      return auth.signInWithPopup(githubProvider);
+    }
   }
 
   useEffect(() => {
@@ -46,7 +63,7 @@ export function AuthProvider({ children }) {
     signup,
     logout,
     resetPassword,
-    loginWithGoogle
+    loginWithProvider,
   };
 
   return (

@@ -12,22 +12,22 @@ import {
 import { TextField } from "formik-material-ui";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { Link, useHistory } from "react-router-dom";
+import Google from "mdi-material-ui/Google";
 
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
   const { login } = useAuth();
-  const { loginWithGoogle } = useAuth();
+  const { loginWithProvider } = useAuth();
   const [error, setError] = useState("");
   const history = useHistory();
 
-  async function googleLogin(){
+  async function providerLogin(provider) {
     try {
       setError("");
-      await loginWithGoogle()
+      await loginWithProvider(provider);
       history.push("/");
-    }
-    catch{
+    } catch {
       setError("Failed to Sign In");
     }
   }
@@ -126,9 +126,10 @@ export default function Login() {
         Or Log In with provider
       </Typography>
       <Button
+        startIcon={<Google />}
         variant="outlined"
         color="primary"
-        onClick={googleLogin}
+        onClick={() => providerLogin('google')}
         fullWidth
       >
         Google
