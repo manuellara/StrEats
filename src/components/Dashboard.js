@@ -14,6 +14,7 @@ export default function Dashboard() {
     try {
       await logout();
       history.push("/login");
+      console.log(currentUser)
     } catch {
       setError("Issue with Logging Out");
     }

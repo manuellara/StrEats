@@ -4,7 +4,6 @@ import {
   googleProvider,
   facebookProvider,
   twitterProvider,
-  githubProvider,
 } from "../firebase";
 
 const AuthContext = React.createContext();
@@ -42,9 +41,6 @@ export function AuthProvider({ children }) {
     }
     else if (provider === "twitter") {
       return auth.signInWithPopup(twitterProvider);
-    }
-    else if (provider === "github") {
-      return auth.signInWithPopup(githubProvider);
     }
   }
 

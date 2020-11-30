@@ -12,7 +12,8 @@ import {
 import { TextField } from "formik-material-ui";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { Link, useHistory } from "react-router-dom";
-import Google from "mdi-material-ui/Google";
+import Google  from "mdi-material-ui/Google";
+import Twitter from "mdi-material-ui/Twitter";
 
 import { useAuth } from "../contexts/AuthContext";
 
@@ -128,11 +129,19 @@ export default function Login() {
       <Button
         startIcon={<Google />}
         variant="outlined"
-        color="primary"
-        onClick={() => providerLogin('google')}
+        onClick={() => providerLogin("google")}
         fullWidth
       >
         Google
+      </Button>
+      <Button
+        startIcon={<Twitter />}
+        variant="outlined"
+        color="primary"
+        onClick={() => providerLogin("twitter")}
+        fullWidth
+      >
+        Twitter
       </Button>
     </>
   );
