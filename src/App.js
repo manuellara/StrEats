@@ -1,10 +1,10 @@
 import React from "react"
-import { Grid, Container } from "@material-ui/core"
+import { Container } from "@material-ui/core"
 import { AuthProvider } from "./contexts/AuthContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Privateroute from "./components/PrivateRoute"
 
-// app routes
+// page routes
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
@@ -14,14 +14,6 @@ import UpdateProfile from "./components/UpdateProfile";
 function App() {
   return (
     <AuthProvider>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: "100vh"}}
-      >
         <Container maxWidth="sm">
           <Router>
             <Switch>
@@ -33,7 +25,6 @@ function App() {
             </Switch>
           </Router>
         </Container>
-      </Grid>
     </AuthProvider>
   );
 }

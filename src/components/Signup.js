@@ -65,7 +65,7 @@ export default function Signup() {
           <Form>
             {isSubmitting && <LinearProgress />}
             <Card variant="outlined">
-              <Typography variant="h4" align="center">
+              <Typography variant="h5" align="center">
                 Sign Up
               </Typography>
               {error && (

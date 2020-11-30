@@ -56,7 +56,7 @@ export default function ForgotPassword() {
           <Form>
             {isSubmitting && <LinearProgress />}
             <Card variant="outlined">
-              <Typography variant="h4" align="center">
+              <Typography variant="h5" align="center">
                 Reset Password
               </Typography>
               {message && (
