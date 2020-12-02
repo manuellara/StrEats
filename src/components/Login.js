@@ -34,7 +34,7 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: theme.palette.common.grey,
     },
   },
   paper: {
