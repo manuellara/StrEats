@@ -34,7 +34,7 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: theme.palette.common.grey,
     },
   },
   paper: {
@@ -99,7 +99,7 @@ export default function Login() {
                 await login(values.email, values.password);
                 history.push("/");
               } catch {
-                setError("Failed to Sign In");
+                setError("Failed to Log In");
               }
             }, 500);
           }}
@@ -111,7 +111,7 @@ export default function Login() {
               <Typography component="h1" variant="h5" align="center">
                 Login
               </Typography>
-              
+
               {error && (
                 <Alert severity="error">
                   <AlertTitle>Error</AlertTitle>

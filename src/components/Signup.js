@@ -13,6 +13,8 @@ import {
 import { TextField } from "formik-material-ui";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { Link, useHistory } from "react-router-dom";
+import Google from "mdi-material-ui/Google";
+import Twitter from "mdi-material-ui/Twitter";
 
 import { useAuth } from "../contexts/AuthContext";
 
@@ -48,10 +50,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup() {
   const { signup } = useAuth();
+  const { loginWithProvider } = useAuth();
   const [error, setError] = useState("");
   const history = useHistory();
 
   const classes = useStyles();
+
+  async function providerLogin(provider) {
+    try {
+      setError("");
+      await loginWithProvider(provider);
+      history.push("/");
+    } catch {
+      setError("Failed to Sign Up");
+    }
+  }
 
   return (
     <Container className="main" component="main" maxWidth="xs">
@@ -148,22 +161,46 @@ export default function Signup() {
               >
                 Submit
               </Button>
+
+              <Grid container>
+                <Grid item xs align="center">
+                  <Link to="/login" variant="body2">
+                    Already have an account? Sign In
+                  </Link>
+                </Grid>
+              </Grid>
+
+              <Typography
+                variant="body2"
+                align="center"
+                className={classes.submit}
+              >
+                Or Sign Up with provider
+              </Typography>
+
+              <Button
+                startIcon={<Google />}
+                variant="outlined"
+                color="primary"
+                onClick={() => providerLogin("google")}
+                fullWidth
+                className={classes.submit}
+              >
+                Google
+              </Button>
+              <Button
+                startIcon={<Twitter />}
+                variant="outlined"
+                color="secondary"
+                onClick={() => providerLogin("twitter")}
+                fullWidth
+                className={classes.submit}
+              >
+                Twitter
+              </Button>
             </Form>
           )}
         </Formik>
-
-        <Grid container>
-          <Grid item xs align="center">
-            <Link to="/login" variant="body2">
-              Already have an account? Sign In
-            </Link>
-          </Grid>
-        </Grid>
-
-        <Typography variant="body2" align="center" className={classes.submit}>
-          Or Sign Up with provider
-        </Typography>
-
       </div>
       <Box mt={8}>
         <Copyright />
