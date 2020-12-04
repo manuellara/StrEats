@@ -4,10 +4,11 @@ import {
   Grid,
   Button,
   LinearProgress,
-  Card,
-  CardActions,
-  CardContent,
-  Typography
+  Typography,
+  makeStyles,
+  CssBaseline,
+  Container,
+  Box,
 } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Alert, AlertTitle } from "@material-ui/lab";
@@ -15,120 +16,158 @@ import { Link, useHistory } from "react-router-dom";
 
 import { useAuth } from "../contexts/AuthContext";
 
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" to="https://streats.app/">
+        StrEats
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  // global background color is in the login page
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
 export default function Signup() {
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const history = useHistory();
 
+  const classes = useStyles();
+
   return (
-    <>
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-          passwordConfirm: "",
-        }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = "Required";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
-          }
-
-          if (values.password.length < 8) {
-            errors.password = "Password needs to be at lest 8 characters";
-          }
-
-          if (values.passwordConfirm !== values.password) {
-            errors.passwordConfirm = "Passwords do not match";
-          }
-
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          setError("");
-          setTimeout(async () => {
-            setSubmitting(false);
-            try {
-              await signup(values.email, values.password);
-              history.push("/")
-            } catch {
-              setError("Failed to create account");
+    <Container className="main" component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+            passwordConfirm: "",
+          }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
             }
-          }, 500);
-        }}
-      >
-        {({ submitForm, isSubmitting }) => (
-          <Form>
-            {isSubmitting && <LinearProgress />}
-            <Card variant="outlined">
-              <Typography variant="h5" align="center">
+
+            if (values.password.length < 8) {
+              errors.password = "Password needs to be at lest 8 characters";
+            }
+
+            if (values.passwordConfirm !== values.password) {
+              errors.passwordConfirm = "Passwords do not match";
+            }
+
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            setError("");
+            setTimeout(async () => {
+              setSubmitting(false);
+              try {
+                await signup(values.email, values.password);
+                history.push("/");
+              } catch {
+                setError("Failed to create account");
+              }
+            }, 500);
+          }}
+        >
+          {({ submitForm, isSubmitting }) => (
+            <Form className={classes.form}>
+              {isSubmitting && <LinearProgress />}
+
+              <Typography component="h1" variant="h5" align="center">
                 Sign Up
               </Typography>
+
               {error && (
                 <Alert severity="error">
                   <AlertTitle>Error</AlertTitle>
                   {error}
                 </Alert>
               )}
-              <CardContent>
-                <Grid container spacing={3}>
-                  <Grid item xs={12}>
-                    <Field
-                      component={TextField}
-                      variant="outlined"
-                      name="email"
-                      type="email"
-                      label="Email"
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Field
-                      component={TextField}
-                      variant="outlined"
-                      type="password"
-                      label="Password"
-                      name="password"
-                      fullWidth
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Field
-                      component={TextField}
-                      variant="outlined"
-                      type="password"
-                      label="Confirm Password"
-                      name="passwordConfirm"
-                      fullWidth
-                    />
-                  </Grid>
-                </Grid>
-              </CardContent>
-              <CardActions>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  disabled={isSubmitting}
-                  onClick={submitForm}
-                  fullWidth
-                >
-                  Submit
-                </Button>
-              </CardActions>
-            </Card>
-          </Form>
-        )}
-      </Formik>
-      <Typography variant="h6" align="center">
-        Already have an account? <Link to="/login">Sign In</Link>
-      </Typography>
-      <Typography variant="h6" align="center">
-        Or Sign Up using provider
-      </Typography>
-    </>
+
+              <Field
+                component={TextField}
+                variant="outlined"
+                name="email"
+                type="email"
+                label="Email Address"
+                margin="normal"
+                fullWidth
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                type="password"
+                label="Password"
+                name="password"
+                margin="normal"
+                fullWidth
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                type="password"
+                label="Confirm Password"
+                name="passwordConfirm"
+                margin="normal"
+                fullWidth
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                disabled={isSubmitting}
+                onClick={submitForm}
+                fullWidth
+                className={classes.submit}
+              >
+                Submit
+              </Button>
+            </Form>
+          )}
+        </Formik>
+
+        <Grid container>
+          <Grid item xs align="center">
+            <Link to="/login" variant="body2">
+              Already have an account? Sign In
+            </Link>
+          </Grid>
+        </Grid>
+
+        <Typography variant="body2" align="center" className={classes.submit}>
+          Or Sign Up with provider
+        </Typography>
+
+      </div>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
+    </Container>
   );
 }

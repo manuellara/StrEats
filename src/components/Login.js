@@ -8,13 +8,13 @@ import {
   Container,
   Typography,
   Box,
+  makeStyles,
 } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { Link, useHistory } from "react-router-dom";
 import Google from "mdi-material-ui/Google";
 import Twitter from "mdi-material-ui/Twitter";
-import { makeStyles } from "@material-ui/core/styles";
 
 import { useAuth } from "../contexts/AuthContext";
 
@@ -34,7 +34,7 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   "@global": {
     body: {
-      backgroundColor: theme.palette.common.grey,
+      backgroundColor: theme.palette.common.white,
     },
   },
   paper: {
@@ -111,6 +111,7 @@ export default function Login() {
               <Typography component="h1" variant="h5" align="center">
                 Login
               </Typography>
+              
               {error && (
                 <Alert severity="error">
                   <AlertTitle>Error</AlertTitle>
@@ -159,7 +160,11 @@ export default function Login() {
                 </Grid>
               </Grid>
 
-              <Typography variant="body2" align="center">
+              <Typography
+                variant="body2"
+                align="center"
+                className={classes.submit}
+              >
                 Or Log In with provider
               </Typography>
 
