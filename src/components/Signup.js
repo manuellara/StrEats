@@ -6,7 +6,6 @@ import {
   LinearProgress,
   Typography,
   makeStyles,
-  CssBaseline,
   Container,
   Box,
 } from "@material-ui/core";
@@ -68,7 +67,6 @@ export default function Signup() {
 
   return (
     <Container className="main" component="main" maxWidth="xs">
-      <CssBaseline />
       <div className={classes.paper}>
         <Formik
           initialValues={{

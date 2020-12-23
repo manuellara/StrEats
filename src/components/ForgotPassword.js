@@ -6,7 +6,6 @@ import {
   LinearProgress,
   Typography,
   Container,
-  CssBaseline,
 } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Alert, AlertTitle } from "@material-ui/lab";
@@ -41,7 +40,6 @@ export default function ForgotPassword() {
 
   return (
     <Container className="main" component="main" maxWidth="xs">
-      <CssBaseline />
       <div className={classes.paper}>
         <Formik
           initialValues={{

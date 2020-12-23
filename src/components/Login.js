@@ -4,7 +4,6 @@ import {
   Grid,
   Button,
   LinearProgress,
-  CssBaseline,
   Container,
   Typography,
   Box,
@@ -32,11 +31,11 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  "@global": {
-    body: {
-      backgroundColor: theme.palette.common.grey,
-    },
-  },
+  // "@global": {
+  //   body: {
+  //     backgroundColor: 'grey',
+  //   },
+  // },
   paper: {
     marginTop: theme.spacing(8),
     display: "flex",
@@ -72,7 +71,6 @@ export default function Login() {
 
   return (
     <Container className="main" component="main" maxWidth="xs">
-      <CssBaseline />
       <div className={classes.paper}>
         <Formik
           initialValues={{
@@ -118,6 +116,7 @@ export default function Login() {
                   {error}
                 </Alert>
               )}
+
               <Field
                 component={TextField}
                 variant="outlined"
@@ -127,6 +126,7 @@ export default function Login() {
                 margin="normal"
                 fullWidth
               />
+
               <Field
                 component={TextField}
                 variant="outlined"
@@ -136,6 +136,7 @@ export default function Login() {
                 margin="normal"
                 fullWidth
               />
+
               <Button
                 variant="contained"
                 color="primary"
@@ -178,6 +179,7 @@ export default function Login() {
               >
                 Google
               </Button>
+
               <Button
                 startIcon={<Twitter />}
                 variant="outlined"
@@ -188,6 +190,7 @@ export default function Login() {
               >
                 Twitter
               </Button>
+
             </Form>
           )}
         </Formik>

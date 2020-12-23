@@ -3,6 +3,7 @@ h1, p {
   }
   
   .main{
-    background-color: rgba(248, 248, 248, 0.747);
+    /* form background color */
+    background-color: rgba(248, 248, 248, 0.815); 
     border-radius: 10px;
   }
