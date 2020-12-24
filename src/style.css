@@ -6,4 +6,5 @@ h1, p {
     /* form background color */
     background-color: rgba(248, 248, 248, 0.815); 
     border-radius: 10px;
+    box-shadow: 0 0 3px rgb(0, 0, 0);
   }
