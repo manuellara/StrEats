@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import {
@@ -7,12 +7,18 @@ import {
   IconButton,
   Typography,
   Button,
+  Drawer,
 } from "@material-ui/core";
 import { Menu, Logout } from "mdi-material-ui";
 
 export default function Appbar() {
   const { currentUser, logout } = useAuth();
   const history = useHistory();
+  const [open, setOpen] = useState(false);
+
+  const handleDrawer = () => {
+    setOpen(true);
+  };
 
   async function handleLogOut() {
     try {
@@ -28,7 +34,12 @@ export default function Appbar() {
     <div>
       <AppBar position="static">
         <Toolbar>
-          <IconButton color="inherit" edge="start" aria-label="menu">
+          <IconButton
+            onClick={handleDrawer}
+            color="inherit"
+            edge="start"
+            aria-label="menu"
+          >
             <Menu />
           </IconButton>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
@@ -39,6 +50,10 @@ export default function Appbar() {
           </Button>
         </Toolbar>
       </AppBar>
+
+      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+        <h3>This is a drawer</h3>
+      </Drawer>
     </div>
   );
 }

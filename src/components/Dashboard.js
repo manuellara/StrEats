@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary,
   },
 }));
 
