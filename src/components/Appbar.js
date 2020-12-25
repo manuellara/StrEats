@@ -8,13 +8,31 @@ import {
   Typography,
   Button,
   Drawer,
+  makeStyles,
+  List,
+  ListItem,
+  Divider,
+  ListItemText,
+  ListItemIcon,
+  ListItemAvatar,
+  Avatar,
 } from "@material-ui/core";
 import { Menu, Logout } from "mdi-material-ui";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    maxWidth: "36ch",
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
 
 export default function Appbar() {
   const { currentUser, logout } = useAuth();
   const history = useHistory();
   const [open, setOpen] = useState(false);
+
+  const classes = useStyles();
 
   const handleDrawer = () => {
     setOpen(true);
@@ -52,7 +70,28 @@ export default function Appbar() {
       </AppBar>
 
       <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-        <h3>This is a drawer</h3>
+        
+        <List className={classes.root}>
+
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar
+                alt={currentUser.displayName}
+                src={currentUser.photoURL}
+              />
+            </ListItemAvatar>
+          </ListItem>
+
+          <Divider component="li" />
+
+          <ListItem button>
+            <ListItemIcon>
+              <Menu />
+            </ListItemIcon>
+            <ListItemText primary="Drafts" />
+          </ListItem>
+
+        </List>
       </Drawer>
     </div>
   );
