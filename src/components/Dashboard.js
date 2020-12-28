@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import MUICarousel from "./MUICarousel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
     textAlign: "center",
-  },
+  }
 }));
 
 export default function Dashboard() {
@@ -32,7 +33,11 @@ export default function Dashboard() {
   return (
     <>
       <Appbar />
+
       <Container maxWidth="md" className={classes.root}>
+
+        <MUICarousel />
+
         <Grid container spacing={3} className={classes.grid}>
           <Grid item xs={12} sm={6}>
             <Card className={classes.card}>
@@ -51,6 +56,7 @@ export default function Dashboard() {
             </Card>
           </Grid>
         </Grid>
+
       </Container>
     </>
   );

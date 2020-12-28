@@ -17,13 +17,23 @@ import {
   ListItemAvatar,
   Avatar,
 } from "@material-ui/core";
-import { Menu, Logout } from "mdi-material-ui";
+import { Menu, AccountCircle, Logout, Cog, History } from "mdi-material-ui";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
-    maxWidth: "36ch",
+    width: 250,
     backgroundColor: theme.palette.background.paper,
+  },
+  avatar: {
+    height: "70px",
+    width: "70px",
+  },
+  bottomPush: {
+    position: "fixed",
+    bottom: 0,
+    textAlign: "center",
+    padding: 10,
+    width: 250,
   },
 }));
 
@@ -48,6 +58,21 @@ export default function Appbar() {
     }
   }
 
+  const drawerListItems = [
+    {
+      icon: [<AccountCircle />],
+      title: "Account",
+    },
+    {
+      icon: [<Cog />],
+      title: "Settings",
+    },
+    {
+      icon: [<History />],
+      title: "History",
+    },
+  ];
+
   return (
     <div>
       <AppBar position="static">
@@ -61,37 +86,56 @@ export default function Appbar() {
             <Menu />
           </IconButton>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
-            StrEats
+            Mobile Ordering System
           </Typography>
-          <Button color="inherit" endIcon={<Logout />} onClick={handleLogOut}>
-            Logout
-          </Button>
         </Toolbar>
       </AppBar>
 
       <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-        
         <List className={classes.root}>
-
-          <ListItem alignItems="flex-start">
+          <ListItem>
             <ListItemAvatar>
               <Avatar
+                className={classes.avatar}
                 alt={currentUser.displayName}
                 src={currentUser.photoURL}
               />
             </ListItemAvatar>
           </ListItem>
 
-          <Divider component="li" />
-
-          <ListItem button>
-            <ListItemIcon>
-              <Menu />
-            </ListItemIcon>
-            <ListItemText primary="Drafts" />
+          <ListItem>
+            <ListItemText
+              primary={currentUser.displayName}
+              secondary="Wilmington, CA"
+            />
           </ListItem>
 
+          <Divider />
+
+          {/* iterates through drawer liste items  */}
+          {drawerListItems.map((item) => {
+            return (
+              <>
+                <ListItem button>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.title} />
+                </ListItem>
+              </>
+            );
+          })}
         </List>
+
+        <div className={classes.bottomPush}>
+          <Button
+            color={"secondary"}
+            fullWidth
+            variant={"outlined"}
+            endIcon={<Logout />}
+            onClick={handleLogOut}
+          >
+            Logout
+          </Button>
+        </div>
       </Drawer>
     </div>
   );
