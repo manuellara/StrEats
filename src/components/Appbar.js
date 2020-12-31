@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function Appbar() {
   const { currentUser, logout } = useAuth();
   const history = useHistory();
@@ -58,21 +59,6 @@ export default function Appbar() {
     }
   }
 
-  const drawerListItems = [
-    {
-      icon: [<AccountCircle />],
-      title: "Account",
-    },
-    {
-      icon: [<Cog />],
-      title: "Settings",
-    },
-    {
-      icon: [<History />],
-      title: "History",
-    },
-  ];
-
   return (
     <div>
       <AppBar position="static">
@@ -86,7 +72,7 @@ export default function Appbar() {
             <Menu />
           </IconButton>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
-            Mobile Ordering System
+            StrEats - Mobile Ordering
           </Typography>
         </Toolbar>
       </AppBar>
@@ -104,6 +90,7 @@ export default function Appbar() {
           </ListItem>
 
           <ListItem>
+          
             <ListItemText
               primary={currentUser.displayName}
               secondary="Wilmington, CA"
@@ -112,17 +99,26 @@ export default function Appbar() {
 
           <Divider />
 
-          {/* iterates through drawer liste items  */}
-          {drawerListItems.map((item) => {
-            return (
-              <>
-                <ListItem button>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.title} />
-                </ListItem>
-              </>
-            );
-          })}
+          <ListItem button>
+            <ListItemIcon>
+              <AccountCircle />
+            </ListItemIcon>
+            <ListItemText primary="Account" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <Cog />
+            </ListItemIcon>
+            <ListItemText primary="Settings" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <History />
+            </ListItemIcon>
+            <ListItemText primary="History" />
+          </ListItem>
+
+
         </List>
 
         <div className={classes.bottomPush}>

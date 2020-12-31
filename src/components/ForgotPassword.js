@@ -6,6 +6,7 @@ import {
   LinearProgress,
   Typography,
   Container,
+  Paper,
 } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { Alert, AlertTitle } from "@material-ui/lab";
@@ -15,16 +16,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useAuth } from "../contexts/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
-  // global background color is in the login page
   paper: {
     marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    borderRadius: "25px",
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    width: "100%",
+    padding: 10,
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -39,8 +41,8 @@ export default function ForgotPassword() {
   const classes = useStyles();
 
   return (
-    <Container className="main" component="main" maxWidth="xs">
-      <div className={classes.paper}>
+    <Container maxWidth="xs">
+      <Paper variant="outlined" className={classes.paper}>
         <Formik
           initialValues={{
             email: "",
@@ -108,18 +110,19 @@ export default function ForgotPassword() {
               >
                 Reset Password
               </Button>
+
+              <Grid container>
+                <Grid item xs variant="body2">
+                  <Link to="/login">Back to Login</Link>
+                </Grid>
+                <Grid item variant="body2">
+                  <Link to="/signup">Need an account? Sign Up</Link>
+                </Grid>
+              </Grid>
             </Form>
           )}
         </Formik>
-        <Grid container>
-          <Grid item xs variant="body2">
-            <Link to="/login">Back to Login</Link>
-          </Grid>
-          <Grid item variant="body2">
-            <Link to="/signup">Need an account? Sign Up</Link>
-          </Grid>
-        </Grid>
-      </div>
+      </Paper>
     </Container>
   );
 }

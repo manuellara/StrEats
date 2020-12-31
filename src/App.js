@@ -1,5 +1,5 @@
 import React from "react";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, Container } from "@material-ui/core";
 import { AuthProvider } from "./contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Privateroute from "./components/PrivateRoute";
@@ -13,8 +13,9 @@ import UpdateProfile from "./components/UpdateProfile";
 
 function App() {
   return (
-    <AuthProvider>
-      <CssBaseline />
+    <Container>
+      <AuthProvider>
+        <CssBaseline />
         <Router>
           <Switch>
             <Privateroute exact path="/" component={Dashboard} />
@@ -24,7 +25,8 @@ function App() {
             <Route path="/forgot-password" component={ForgotPassword} />
           </Switch>
         </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Container>
   );
 }
 

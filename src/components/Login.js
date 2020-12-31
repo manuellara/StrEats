@@ -7,6 +7,7 @@ import {
   Container,
   Typography,
   Box,
+  Paper,
   makeStyles,
 } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
@@ -31,20 +32,17 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  // "@global": {
-  //   body: {
-  //     backgroundColor: 'grey',
-  //   },
-  // },
   paper: {
     marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(8),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    borderRadius: "25px"
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    width: "100%",
+    padding: 10
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -70,8 +68,8 @@ export default function Login() {
   }
 
   return (
-    <Container className="main" component="main" maxWidth="xs">
-      <div className={classes.paper}>
+    <Container maxWidth="xs">
+      <Paper variant="outlined" className={classes.paper}>
         <Formik
           initialValues={{
             email: "",
@@ -190,14 +188,14 @@ export default function Login() {
               >
                 Twitter
               </Button>
-
             </Form>
           )}
         </Formik>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
+        
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </Paper>
     </Container>
   );
 }
