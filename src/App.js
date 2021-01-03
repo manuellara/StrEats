@@ -19,7 +19,7 @@ function App() {
     <AuthProvider>
       <CssBaseline />
       <Router>
-      <Appbar />
+        <Appbar />
         <Switch>
           <Privateroute exact path="/" component={Dashboard} />
           <Privateroute path="/update-profile" component={UpdateProfile} />

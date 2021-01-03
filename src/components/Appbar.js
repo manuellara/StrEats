@@ -48,6 +48,7 @@ export default function Appbar() {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [list, setList] = useState(items);
+
   const classes = useStyles();
 
   const handleDrawer = () => setOpen(true);
@@ -55,7 +56,6 @@ export default function Appbar() {
   async function handleLogOut() {
     try {
       await logout();
-      setOpen(false)
       history.push("/login");
       console.log("Logged out successfully");
     } catch {
@@ -92,81 +92,77 @@ export default function Appbar() {
     },
   ];
 
-  const Navbar = () => {
-    return (
-      <>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              onClick={handleDrawer}
-              color="inherit"
-              edge="start"
-              aria-label="menu"
-            >
-              <Menu />
-            </IconButton>
-            <Typography variant="h6" style={{ flexGrow: 1 }}>
-              StrEats - Mobile Ordering
-            </Typography>
-
-            <SearchBox
-              items={list}
-              onChange={(value) => updateList(value)}
-              onItemClick={(value) => handleClick(value)}
-            />
-          </Toolbar>
-        </AppBar>
-
-        <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-          <List className={classes.root}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar
-                  className={classes.avatar}
-                  alt={currentUser.displayName}
-                  src={currentUser.photoURL}
-                />
-              </ListItemAvatar>
-            </ListItem>
-
-            <ListItem>
-              <ListItemText
-                primary={currentUser.displayName}
-                secondary="Wilmington, CA"
-              />
-            </ListItem>
-
-            <Divider />
-
-            {itemList.map((item, index) => {
-              return (
-                <ListItem button key={item.text}>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
-                </ListItem>
-              );
-            })}
-          </List>
-
-          <div className={classes.bottomPush}>
-            <Button
-              color={"secondary"}
-              fullWidth
-              variant={"outlined"}
-              endIcon={<Logout />}
-              onClick={handleLogOut}
-            >
-              Logout
-            </Button>
-          </div>
-        </Drawer>
-      </>
-    );
-  };
-
-  if (currentUser != null) {
-    return <Navbar />;
-  } else {
+  if (currentUser == null) {
     return <></>;
   }
+
+  return (
+    <div>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            onClick={handleDrawer}
+            color="inherit"
+            edge="start"
+            aria-label="menu"
+          >
+            <Menu />
+          </IconButton>
+          <Typography variant="h6" style={{ flexGrow: 1 }}>
+            StrEats - Mobile Ordering
+          </Typography>
+
+          <SearchBox
+            items={list}
+            onChange={(value) => updateList(value)}
+            onItemClick={(value) => handleClick(value)}
+          />
+        </Toolbar>
+      </AppBar>
+
+      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+        <List className={classes.root}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar
+                className={classes.avatar}
+                alt={currentUser.displayName}
+                src={currentUser.photoURL}
+              />
+            </ListItemAvatar>
+          </ListItem>
+
+          <ListItem>
+            <ListItemText
+              primary={currentUser.displayName}
+              secondary="Wilmington, CA"
+            />
+          </ListItem>
+
+          <Divider />
+
+          {itemList.map((item, index) => {
+            return (
+              <ListItem button key={item.text}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItem>
+            );
+          })}
+        </List>
+
+        <div className={classes.bottomPush}>
+          <Button
+            color={"secondary"}
+            fullWidth
+            variant={"outlined"}
+            endIcon={<Logout />}
+            onClick={handleLogOut}
+          >
+            Logout
+          </Button>
+        </div>
+      </Drawer>
+    </div>
+  );
 }
