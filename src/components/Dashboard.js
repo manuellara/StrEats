@@ -1,5 +1,4 @@
 import React from "react";
-import Appbar from "./Appbar";
 import {
   Card,
   CardContent,
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2),
     textAlign: "center",
-  }
+  },
 }));
 
 export default function Dashboard() {
@@ -32,12 +31,11 @@ export default function Dashboard() {
 
   return (
     <>
-      <Appbar />
-
       <Container maxWidth="md" className={classes.root}>
-
+      <h1>Spotlight</h1>
         <MUICarousel />
 
+        <h1>Food in your area</h1>
         <Grid container spacing={3} className={classes.grid}>
           <Grid item xs={12} sm={6}>
             <Card className={classes.card}>
@@ -56,7 +54,6 @@ export default function Dashboard() {
             </Card>
           </Grid>
         </Grid>
-
       </Container>
     </>
   );

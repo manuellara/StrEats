@@ -18,6 +18,7 @@ import {
   Avatar,
 } from "@material-ui/core";
 import { Menu, AccountCircle, Logout, Cog, History } from "mdi-material-ui";
+import SearchBox from "react-searchbox-highlight";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,102 +38,135 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+let items = [
+  { label: "Cindy Robles", value: { name: "obj1" } },
+  { label: "Manuel Lara", value: { name: "obj2" } },
+];
 
 export default function Appbar() {
   const { currentUser, logout } = useAuth();
   const history = useHistory();
   const [open, setOpen] = useState(false);
-
+  const [list, setList] = useState(items);
   const classes = useStyles();
 
-  const handleDrawer = () => {
-    setOpen(true);
-  };
+  const handleDrawer = () => setOpen(true);
 
   async function handleLogOut() {
     try {
       await logout();
+      setOpen(false)
       history.push("/login");
-      console.log(currentUser);
+      console.log("Logged out successfully");
     } catch {
       alert("Issue with Logging Out");
     }
   }
 
-  return (
-    <div>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            onClick={handleDrawer}
-            color="inherit"
-            edge="start"
-            aria-label="menu"
-          >
-            <Menu />
-          </IconButton>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
-            StrEats - Mobile Ordering
-          </Typography>
-        </Toolbar>
-      </AppBar>
+  function updateList(value) {
+    value = value.toLowerCase();
 
-      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-        <List className={classes.root}>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar
-                className={classes.avatar}
-                alt={currentUser.displayName}
-                src={currentUser.photoURL}
-              />
-            </ListItemAvatar>
-          </ListItem>
+    const updateItems = items.filter((item) => {
+      return item.label.toLowerCase().includes(value);
+    });
 
-          <ListItem>
-          
-            <ListItemText
-              primary={currentUser.displayName}
-              secondary="Wilmington, CA"
+    setList(updateItems);
+  }
+
+  function handleClick(value) {
+    console.log("Item " + value.name + " was clicked");
+  }
+
+  const itemList = [
+    {
+      text: "Account",
+      icon: <AccountCircle />,
+    },
+    {
+      text: "Settings",
+      icon: <Cog />,
+    },
+    {
+      text: "History",
+      icon: <History />,
+    },
+  ];
+
+  const Navbar = () => {
+    return (
+      <>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              onClick={handleDrawer}
+              color="inherit"
+              edge="start"
+              aria-label="menu"
+            >
+              <Menu />
+            </IconButton>
+            <Typography variant="h6" style={{ flexGrow: 1 }}>
+              StrEats - Mobile Ordering
+            </Typography>
+
+            <SearchBox
+              items={list}
+              onChange={(value) => updateList(value)}
+              onItemClick={(value) => handleClick(value)}
             />
-          </ListItem>
+          </Toolbar>
+        </AppBar>
 
-          <Divider />
+        <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+          <List className={classes.root}>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar
+                  className={classes.avatar}
+                  alt={currentUser.displayName}
+                  src={currentUser.photoURL}
+                />
+              </ListItemAvatar>
+            </ListItem>
 
-          <ListItem button>
-            <ListItemIcon>
-              <AccountCircle />
-            </ListItemIcon>
-            <ListItemText primary="Account" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <Cog />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <History />
-            </ListItemIcon>
-            <ListItemText primary="History" />
-          </ListItem>
+            <ListItem>
+              <ListItemText
+                primary={currentUser.displayName}
+                secondary="Wilmington, CA"
+              />
+            </ListItem>
 
+            <Divider />
 
-        </List>
+            {itemList.map((item, index) => {
+              return (
+                <ListItem button key={item.text}>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItem>
+              );
+            })}
+          </List>
 
-        <div className={classes.bottomPush}>
-          <Button
-            color={"secondary"}
-            fullWidth
-            variant={"outlined"}
-            endIcon={<Logout />}
-            onClick={handleLogOut}
-          >
-            Logout
-          </Button>
-        </div>
-      </Drawer>
-    </div>
-  );
+          <div className={classes.bottomPush}>
+            <Button
+              color={"secondary"}
+              fullWidth
+              variant={"outlined"}
+              endIcon={<Logout />}
+              onClick={handleLogOut}
+            >
+              Logout
+            </Button>
+          </div>
+        </Drawer>
+      </>
+    );
+  };
+
+  if (currentUser != null) {
+    return <Navbar />;
+  } else {
+    return <></>;
+  }
 }
