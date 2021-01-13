@@ -57,6 +57,7 @@ export default function Appbar() {
     try {
       await logout();
       history.push("/login");
+      setOpen(false)
       console.log("Logged out successfully");
     } catch {
       alert("Issue with Logging Out");

@@ -14,9 +14,7 @@ import MUICarousel from "./MUICarousel";
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: "30px",
-  },
-  grid: {
-    paddingBottom: "30px",
+    paddingBottom: "30px"
   },
   card: {
     padding: theme.spacing(2),
@@ -29,14 +27,16 @@ export default function Dashboard() {
 
   const classes = useStyles();
 
-  return (
+  return(
     <>
       <Container maxWidth="md" className={classes.root}>
-      <h1>Spotlight</h1>
-        <MUICarousel />
+        <h1>Spotlight</h1>
+        <div style={{ height: 250 }}>
+          <MUICarousel />
+        </div>
 
         <h1>Food in your area</h1>
-        <Grid container spacing={3} className={classes.grid}>
+        <Grid container spacing={3} >
           <Grid item xs={12} sm={6}>
             <Card className={classes.card}>
               <CardContent>
